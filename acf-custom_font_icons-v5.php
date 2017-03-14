@@ -149,12 +149,19 @@ class acf_field_custom_font_icons extends acf_field {
 			?>
 			<script>
 				jQuery('head').append('<link rel="stylesheet" type="text/css" href="<?php echo $icons_url ?>">');
+				function updateIconPreview(option){
+
+				    var span = jQuery(option).prev('.font-icon-display').find('span').first();
+				    span.removeClass();
+                    span.addClass('icon ' + option.value);
+                }
 			</script>
 
-			<div class="font-icon-display">
-				<i class=" <?php echo "$class_prefix ".$field['value']; ?>"></i>
+			<div class="font-icon-display" style="min-height:50px">
+				<span class=" <?php echo "$class_prefix ".$field['value']; ?>" style="font-size:45px;"></span>
 			</div>
 			<select class="wpmse_select2 font-select" name="<?php echo esc_attr($field['name']) ?>"
+            onchange="updateIconPreview(this)">
 				<option >Choose one</option>
 				<?php
 				foreach($font_classes as $font_class) {
@@ -182,7 +189,6 @@ class acf_field_custom_font_icons extends acf_field {
 		$url     = $this->settings['url'];
 		$version = $this->settings['version'];
 
-		print_r("hello $url\n");
 		$active_directory = basename(get_template_directory());
 		$stylesheet_directory_name = basename(get_stylesheet_directory());
 		if (strpos($stylesheet_directory_name, 'child') !== false) {
@@ -193,12 +199,12 @@ class acf_field_custom_font_icons extends acf_field {
 
 
 		// register & include JS
-		wp_register_script( 'acf-input-custom_font_icons', "{$script_base_url}/assets/js/input.js", array( 'acf-input', 'jquery' ), $version );
-		wp_enqueue_script( 'acf-input-custom_font_icons' );
+//		wp_register_script( 'acf-input-custom_font_icons', "{$script_base_url}/assets/js/input.js", array( 'acf-input', 'jquery' ), $version );
+//		wp_enqueue_script( 'acf-input-custom_font_icons' );
 
 		// register & include CSS
-		wp_register_style( 'acf-input-custom_font_icons', "{$script_base_url}/assets/css/input.css", array( 'acf-input' ), $version );
-		wp_enqueue_style( 'acf-input-custom_font_icons' );
+//		wp_register_style( 'acf-input-custom_font_icons', "{$script_base_url}/assets/css/input.css", array( 'acf-input' ), $version );
+//		wp_enqueue_style( 'acf-input-custom_font_icons' );
 
 	}
 	
