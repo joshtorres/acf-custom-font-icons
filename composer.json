@@ -11,5 +11,6 @@
       "name": "Trampoline Digital",
       "homepage": "http://trampolinedigital.com"
     }
-  ]
+  ],
+  "type":"wordpress-plugin"
 }
