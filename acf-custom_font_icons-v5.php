@@ -154,9 +154,9 @@ if( !class_exists('acf_field_custom_font_icons') ) :
 											padding: 10px;
 										}
                     .dental-font-icons:checked + label {
-                        border: #33b3db 1px solid;
+                        border: #33b3db 3px solid;
                         min-height:50px;
-												padding: 9px;
+												padding: 7px;
                     }
                     .dental-font-icons label span {
                         line-height:45px;
