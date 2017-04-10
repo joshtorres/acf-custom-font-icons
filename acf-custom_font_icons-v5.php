@@ -149,7 +149,7 @@ if( !class_exists('acf_field_custom_font_icons') ) :
                 </script>
                 <style>
 										input.dental-font-icons{display: none;}
-										.dental-font-icons label{display: block;}
+										input..dental-font-icons + label{display: block;}
                     .dental-font-icons:checked + label {
                         border: #33b3db 1px solid;
                         min-height:50px;
