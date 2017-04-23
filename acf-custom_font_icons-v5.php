@@ -169,8 +169,8 @@ if( !class_exists('acf_field_custom_font_icons') ) :
                     $active = strpos($field['value'], $font_class);
                     if ( $active !== false ) $checked = "checked='checked'";
                     echo "<div style='min-height:50px;min-width:50px;display:inline-block;vertical-align: middle;margin:10px'>";
-                    echo "<input class='dental-font-icons' id='icon-" . $font_class ."' type=\"radio\" name=\"" .  esc_attr($field['name']) . "\" id=\"sad\" value='" . $font_class ."' $checked>";
-                    echo "<label for='icon-" . $font_class ."'><span class='icon ". $font_class ."'></span></label>";
+                    echo "<input class='dental-font-icons' type=\"radio\" name=\"" .  esc_attr($field['name']) . "\" id=\"" . esc_attr($field['id']) . "_$font_class\" value='" . $font_class ."' $checked>";
+                    echo "<label for='" . esc_attr($field['id']) ."_$font_class'><span class='icon ". $font_class ."'></span></label>";
                     echo "</div>";
                 }
             }
