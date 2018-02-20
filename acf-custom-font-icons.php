@@ -2,11 +2,11 @@
 
 /*
 Plugin Name: Advanced Custom Fields: Custom Font Icons
-Plugin URI: PLUGIN_URL
+Plugin URI: https://github.com/rorymcdaniel/acf-custom-font-icons
 Description: Custom font icons for custom fields (i.e. Fort Awesome)
 Version: 1.0.0
-Author: AUTHOR_NAME
-Author URI: AUTHOR_URL
+Author: BrightOak
+Author URI: brightoak.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */

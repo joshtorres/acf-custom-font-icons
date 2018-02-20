@@ -11,6 +11,7 @@ custom fields.
 There are 2 options you must set
 1) **Font CSS File Location** is a relative path to the css file that has the font classes in your theme.
 2) **CSS Class Prefix** (optional) is the font prefix you need to use in the css class (fa) this will default to `fa`
+3) **CSS Class Filter** (optional) is the class to filter by. It will only show icons that use this class. This will default to icon
 
 Thats it, go use your awesome fonts.
 

@@ -39,6 +39,7 @@ if( !class_exists('acf_field_custom_font_icons') ) :
             */
             $this->defaults = array(
                 'class_prefix'	=> "fa",
+                'class_filter'  => ''
             );
 
 
@@ -64,11 +65,18 @@ if( !class_exists('acf_field_custom_font_icons') ) :
          * @param $class_prefix string
          * @return array
          */
-        public function get_css_class_list($icons_file, $class_prefix) {
+        public function get_css_class_list($icons_file, $class_prefix, $class_filter = '') {
 
 
             $parsed_file = file_get_contents($icons_file);
-            preg_match_all("/$class_prefix\-([a-zA-z0-9\-]+[^\:\.\,\s])/", $parsed_file, $matches);
+
+            $pattern = "/$class_prefix\-";
+            if (!empty($class_filter)) {
+                $pattern .= "$class_filter\-";
+            }
+            $pattern .= "([a-zA-z0-9\-]+[^\:\.\,\s])/";
+            
+            preg_match_all($pattern, $parsed_file, $matches);
             $exclude_icons = array("fa-lg", "fa-2x", "fa-3x", "fa-4x", "fa-5x", "fa-ul", "fa-li", "fa-fw", "fa-border", "fa-pulse", "fa-rotate-90", "fa-rotate-180", "fa-rotate-270", "fa-spin", "fa-flip-horizontal", "fa-flip-vertical", "fa-stack", "fa-stack-1x", "fa-stack-2x", "fa-inverse", "fa-lg{", "fa-2x{", "fa-3x{", "fa-4x{", "fa-5x{", "fa-ul{", "fa-li{", "fa-fw{", "fa-border{", "fa-pulse{", "fa-rotate-90{", "fa-rotate-180{", "fa-rotate-270{", "fa-spin{", "fa-flip-horizontal{", "fa-flip-vertical{", "fa-stack{", "fa-stack-1x{", "fa-stack-2x{", "fa-inverse{", "fa-pull-left", "fa-pull-left{", "fa-pull-right", "fa-pull-right{", "fa-ul>");
             $icons = $this->array_delete($matches[0], $exclude_icons);
             sort($icons);
@@ -103,6 +111,12 @@ if( !class_exists('acf_field_custom_font_icons') ) :
                 'type'			=> 'text',
                 'name'			=> 'class_prefix'
             ));
+            acf_render_field_setting( $field, array(
+                'label'			=> __('CSS Class Filter','acf-custom_font_icons'),
+                'instructions'	=> __('Choose a class to filter by to only show those icons','acf-custom_font_icons'),
+                'type'			=> 'text',
+                'name'			=> 'class_filter'
+            ));
         }
 
 
@@ -121,20 +135,24 @@ if( !class_exists('acf_field_custom_font_icons') ) :
          */
 
         function render_field( $field ) {
-            if (!$field['class_prefix']){
+            if (empty($field['class_prefix'])){
                 $class_prefix = "fa";
             } else{
                 $class_prefix = $field['class_prefix'];
             }
 
-
+            if (empty($field['class_filter'])) {
+                $class_filter = '';
+            } else {
+                $class_filter = $field['class_filter'];
+            }
 
             $icons_url = \App\asset_path($field['relative_path']);
 
             if (!$field['relative_path']){
                 echo '<pre style="color:red;">YOU NEED TO CHOOSE A PATH FOR THE FILES!!!</pre>';
             } else{
-                $font_classes = $this->get_css_class_list($icons_url,$class_prefix);
+                $font_classes = $this->get_css_class_list($icons_url,$class_prefix, $class_filter);
                 array_walk($font_classes, function(&$font, $key) use (&$font_classes){
                     $font = str_replace('{','',$font);
                     if($font == "icon-]"){
@@ -148,11 +166,11 @@ if( !class_exists('acf_field_custom_font_icons') ) :
                     jQuery('head').append('<link rel="stylesheet" type="text/css" href="<?php echo $icons_url ?>">');
                 </script>
                 <style>
-										input.dental-font-icons{display: none;}
-										input.dental-font-icons + label{
-											display: block;
-											padding: 10px;
-										}
+                    input.dental-font-icons{display: none;}
+                    input.dental-font-icons + label{
+                        display: block;
+                        padding: 10px;
+                    }
                     .dental-font-icons:checked + label {
                         border: #33b3db 3px solid;
                         min-height:50px;
